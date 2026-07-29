@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Windows 95 - DOOM</title>
+    <!-- 1. Load the JS-DOS engine from CDN -->
+    <script src="https://js-dos.com/6.22/current/js-dos.js"></script>
+    <style>
+        /* Basic Win95 styling for the background */
+        body { background-color: #008080; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .window { background: #c0c0c0; border: 2px solid; border-color: #fff #000 #000 #fff; padding: 2px; }
+        canvas { width: 640px; height: 400px; display: block; outline: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 2. Your Game Canvas -->
+    <div class="window">
+        <canvas id="doom-canvas" tabindex="0" onclick="this.focus()"></canvas>
+    </div>
+
+    <!-- 3. The Vanilla JS to boot the game -->
+    <script>
+        // Initialize the emulator on your canvas
+        Dos(document.getElementById("doom-canvas"), {
+            wdosboxUrl: "https://js-dos.com/6.22/current/wdosbox.js"
+        }).ready(function (fs, main) {
+            // Extract the static zip file hosted in the same folder
+            fs.extract("freedoom.zip").then(function () {
+                main(["-c", "DOOM.EXE"]); // Change to whatever your .exe is called
+            });
+        });
+    </script>
+
+</body>
+</html>
